@@ -1,7 +1,11 @@
+import Hero from "@/components/hero";
+import Navbar from "@/components/navbar";
+
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      Hello
+    <div className="flex min-h-screen flex-col bg-[#070707] text-zinc-50">
+      <Navbar />
+      <Hero />
     </div>
   );
 }
