@@ -10,20 +10,19 @@ const instrumentSerif = Instrument_Serif({
 
 export default function Hero() {
   return (
-    <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center px-6 pb-16 pt-20 text-center lg:px-8 lg:pt-24">
+    <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center px-6 pb-16 pt-20 text-center lg:px-8 lg:pt-23">
       <a
         href="https://github.com/yshishir/openshare"
         target="_blank"
         rel="noopener noreferrer"
         className="mb-6 flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/70 px-4 py-2 text-xs text-zinc-300"
       >
-        <FaGithub />
-        Star us on GitHub
         <FaStar />
+        Star us on Github
       </a>
 
       <h1
-        className={`${instrumentSerif}max-w-5xl font-serif text-6xl leading-tight sm:text-6xl lg:text-6xl`}
+        className={`${instrumentSerif.className} max-w-5xl text-6xl leading-tight sm:text-6xl lg:text-6xl`}
       >
         Share your photos, videos & files securely with one simple link
       </h1>
