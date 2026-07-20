@@ -14,7 +14,7 @@ export default function Hero() {
         href="https://github.com/yshishir/openshare"
         target="_blank"
         rel="noopener noreferrer"
-        className="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/70 px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-zinc-700 hover:bg-zinc-900 hover:text-white"
+        className="mb-6 inline-flex items-center gap-2 rounded-full border-[1.5px] border-zinc-800 bg-zinc-900/70 px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-zinc-700 hover:bg-zinc-900 hover:text-white"
       >
         <FaStar className="text-yellow-400" />
         Star us on Github
