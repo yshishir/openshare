@@ -1,13 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
   return (
     <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
       <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
-        <span className="flex size-7 items-center justify-center rounded-md border border-zinc-700 bg-zinc-900">
-          O
-        </span>
-        OpenShare
+        <Image src="/O.svg" alt="OpenShare logo" width={27} height={27} />
+        Openshare
       </Link>
 
       <nav className="flex items-center gap-3">
