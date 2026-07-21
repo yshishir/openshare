@@ -1,8 +1,15 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { Instrument_Serif } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default function LoginPage() {
   const [isCreateAccount, setIsCreateAccount] = useState(true);
@@ -44,28 +51,29 @@ export default function LoginPage() {
   return (
     <main className="grid min-h-screen bg-[#070707] text-white lg:grid-cols-2">
       <section className="hidden min-h-screen p-6 lg:block">
-        <div className="relative h-full overflow-hidden rounded-3xl">
+        <div className="relative h-full overflow-hidden rounded-md">
           <Image
-          src="/login.jpeg"
-          alt="Secure file sharing"
-          fill
-          priority
-          className="object-cover"
-        />
+            src="/login.jpeg"
+            alt="Secure file sharing"
+            fill
+            priority
+            className="object-cover"
+          />
           <div className="absolute inset-0 bg-black/25" />
         </div>
       </section>
 
       <section className="flex items-center justify-center px-6 py-12">
         <div className="w-full max-w-sm">
-          <p className="mb-3 text-sm font-medium text-zinc-400">OpenShare</p>
-          <h1 className="text-3xl font-semibold">
+          <h1
+            className={`${instrumentSerif.className} text-4xl font-semibold items-center justify-center flex tracking-wide`}
+          >
             {isCreateAccount ? "Create Account" : "Welcome back"}
           </h1>
-          <p className="mt-3 text-sm leading-6 text-zinc-400">
+          <p className="mt-3 text-sm leading-6 text-zinc-400 flex items-center justify-center">
             {isCreateAccount
               ? "Enter your details to create your account."
-              : "Sign in to upload files and manage your secure sharing links."}
+              : "Log back in to start sharing your files"}
           </p>
 
           <button
@@ -75,25 +83,26 @@ export default function LoginPage() {
                 callbackURL: "/",
               })
             }
-            className="mt-8 flex h-12 w-full items-center justify-center gap-3 rounded-lg bg-white px-4 text-sm font-medium text-zinc-950 transition hover:bg-zinc-200"
+            className="mt-8 flex h-12 w-full items-center justify-center gap-3 rounded-full px-4 text-sm text-neutral-100 border-zinc-800 border-[0.5px] cursor-pointer"
           >
-            <span className="flex size-5 items-center justify-center rounded-full border border-zinc-300 text-xs font-semibold">
-              G
-            </span>
+            <FcGoogle className="w-5 h-5" />
             Continue with Google
           </button>
 
           <div className="my-6 flex items-center gap-3">
             <div className="h-px flex-1 bg-zinc-800" />
-            <span className="text-xs text-zinc-500">or</span>
+            <span className="text-sm text-zinc-500">or</span>
             <div className="h-px flex-1 bg-zinc-800" />
           </div>
 
           <form onSubmit={handleEmailAuth} className="space-y-4">
             {isCreateAccount && (
               <div>
-                <label htmlFor="name" className="mb-2 block text-xs font-medium text-zinc-400">
-                  Full name
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-xs font-medium text-zinc-400"
+                >
+                  Full Name
                 </label>
                 <input
                   id="name"
@@ -101,15 +110,18 @@ export default function LoginPage() {
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   required
-                  className="h-11 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 text-sm outline-none transition focus:border-zinc-600"
-                  placeholder="Enter your name"
+                  className="h-11 w-full rounded-xl border border-zinc-800  px-3 text-sm outline-none transition focus:border-zinc-600"
+                  placeholder="Enter you name"
                 />
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="mb-2 block text-xs font-medium text-zinc-400">
-                Email address
+              <label
+                htmlFor="email"
+                className="mb-2 block text-xs font-medium text-zinc-400"
+              >
+                Email
               </label>
               <input
                 id="email"
@@ -117,13 +129,16 @@ export default function LoginPage() {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 required
-                className="h-11 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 text-sm outline-none transition focus:border-zinc-600"
+                className="h-11 w-full rounded-xl border border-zinc-800 px-3 text-sm outline-none transition focus:border-zinc-600"
                 placeholder="you@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="mb-2 block text-xs font-medium text-zinc-400">
+              <label
+                htmlFor="password"
+                className="mb-2 block text-xs font-medium text-zinc-400"
+              >
                 Password
               </label>
               <input
@@ -132,7 +147,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 required
-                className="h-11 w-full rounded-lg border border-zinc-800 bg-zinc-950 px-3 text-sm outline-none transition focus:border-zinc-600"
+                className="h-11 w-full rounded-xl border border-zinc-800 px-3 text-sm outline-none transition focus:border-zinc-600"
                 placeholder="Enter your password"
               />
             </div>
@@ -141,21 +156,21 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="h-12 w-full rounded-lg bg-lime-400 px-4 text-sm font-semibold text-zinc-950 transition hover:bg-lime-300"
+              className="h-12 w-full rounded-full bg-white px-4 text-sm font-semibold text-zinc-950 transition hover:bg-zinc-200 cursor-pointer"
             >
               {isCreateAccount ? "Create account" : "Login"}
             </button>
           </form>
 
           <p className="mt-4 text-center text-xs text-zinc-500">
-            {isCreateAccount ? "Already have an account?" : "New here?"}{" "}
+            {isCreateAccount ? "Already have an account?" : "Don\'t have a account?"}{" "}
             <button
               type="button"
               onClick={() => {
                 setIsCreateAccount(!isCreateAccount);
                 setError("");
               }}
-              className="font-medium text-white"
+              className="font-medium text-white cursor-pointer"
             >
               {isCreateAccount ? "Log in" : "Create account"}
             </button>

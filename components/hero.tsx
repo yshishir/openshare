@@ -33,7 +33,7 @@ export default function Hero() {
       </p>
 
       <Link
-        href="/register"
+        href="/login"
         className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-zinc-200"
       >
         Get Stared
