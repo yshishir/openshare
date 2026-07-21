@@ -22,7 +22,7 @@ export default function Hero() {
       </a>
 
       <h1
-        className={`${instrumentSerif.className} max-w-5xl text-6xl leading-tight sm:text-6xl lg:text-6xl`}
+        className={`${instrumentSerif.className} max-w-5xl text-6xl leading-tight sm:text-5xl lg:text-6xl`}
       >
         Share your photos, videos & files securely with one simple link
       </h1>
