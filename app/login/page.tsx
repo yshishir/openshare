@@ -3,6 +3,7 @@
 import { authClient } from "@/lib/auth-client";
 import { Instrument_Serif } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
@@ -50,8 +51,8 @@ export default function LoginPage() {
 
   return (
     <main className="grid min-h-screen bg-[#070707] text-white lg:grid-cols-2">
-      <section className="hidden min-h-screen p-6 lg:block">
-        <div className="relative h-full overflow-hidden rounded-md">
+      <section className="hidden min-h-screen px-6 py-4 lg:block">
+        <div className="relative h-full overflow-hidden rounded-xl">
           <Image
             src="/login.jpeg"
             alt="Secure file sharing"
@@ -60,6 +61,12 @@ export default function LoginPage() {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-black/25" />
+          <Link href="/">
+          <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center justify-center gap-3">
+            <Image src="/O.svg" alt="Openshare logo" width={30} height={30} />
+            <p className="text-lg font-semibold">Openshare</p>
+          </div>
+          </Link>
         </div>
       </section>
 
@@ -172,7 +179,7 @@ export default function LoginPage() {
               }}
               className="font-medium text-white cursor-pointer"
             >
-              {isCreateAccount ? "Log in" : "Create account"}
+              {isCreateAccount ? "Login" : "Register"}
             </button>
           </p>
         </div>
