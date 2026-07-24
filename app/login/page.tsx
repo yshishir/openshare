@@ -28,7 +28,7 @@ export default function LoginPage() {
         name,
         email,
         password,
-        callbackURL: "/",
+        callbackURL: "/dashboard",
       });
 
       if (error) {
@@ -41,7 +41,7 @@ export default function LoginPage() {
     const { error } = await authClient.signIn.email({
       email,
       password,
-      callbackURL: "/",
+      callbackURL: "/dashboard",
     });
 
     if (error) {
@@ -87,7 +87,7 @@ export default function LoginPage() {
             onClick={() =>
               authClient.signIn.social({
                 provider: "google",
-                callbackURL: "/",
+                callbackURL: "/dashboard",
               })
             }
             className="mt-8 flex h-12 w-full items-center justify-center gap-3 rounded-full px-4 text-sm text-neutral-100 border-zinc-800 border-[0.5px] cursor-pointer"
