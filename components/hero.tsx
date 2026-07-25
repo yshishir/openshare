@@ -7,7 +7,11 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
 });
 
-export default function Hero() {
+type HeroProps = {
+  isAuthenticated: boolean;
+};
+
+export default function Hero({ isAuthenticated }: HeroProps) {
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center px-6 pb-16 pt-20 text-center lg:px-8 lg:pt-23">
       <a
@@ -17,7 +21,7 @@ export default function Hero() {
         className="mb-6 inline-flex items-center gap-2 rounded-full border-[1.5px] border-zinc-800 bg-zinc-900/70 px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-zinc-700 hover:bg-zinc-900 hover:text-white"
       >
         <FaStar className="text-yellow-400" />
-        Star us on Github
+        Proudly Open Source
         <FaChevronRight className="text-[10px] text-zinc-500" />
       </a>
 
@@ -33,10 +37,10 @@ export default function Hero() {
       </p>
 
       <Link
-        href="/login"
+        href={isAuthenticated ? "/dashboard" : "/login"}
         className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition-colors hover:bg-zinc-200"
       >
-        Get Stared
+        {isAuthenticated ? "Go to dashboard" : "Get Started"}
       </Link>
 
       <div className="mt-16 flex min-h-72 w-full max-w-5xl items-center justify-center rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/40 text-sm text-zinc-500 sm:min-h-96">
