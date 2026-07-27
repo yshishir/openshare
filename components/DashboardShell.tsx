@@ -2,18 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import {
-  FiGithub,
-  FiHome,
-  FiLink2,
-  FiMenu,
-  FiSidebar,
-  FiStar,
-  FiUploadCloud,
-  FiX,
-} from "react-icons/fi";
+import { type CSSProperties, useState } from "react";
+import { FiHome, FiLink2, FiUploadCloud } from "react-icons/fi";
 import Logout from "@/components/Logout";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 
 export type DashboardUser = {
   name: string;
@@ -26,19 +29,7 @@ type DashboardShellProps = {
 };
 
 export default function DashboardShell({ user }: DashboardShellProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setIsMobileOpen(false);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  const [showLogout, setShowLogout] = useState(false);
 
   const initials = user.name
     .split(" ")
@@ -48,58 +39,47 @@ export default function DashboardShell({ user }: DashboardShellProps) {
     .toUpperCase();
 
   return (
-    <div className="flex min-h-screen bg-[#070707] text-zinc-100">
-      {isMobileOpen && (
-        <button
-          type="button"
-          aria-label="Close sidebar"
-          className="fixed inset-0 z-30 bg-black/70 md:hidden"
-          onClick={() => setIsMobileOpen(false)}
-        />
-      )}
-
-      <aside
-        className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-zinc-800 bg-[#090909] transition-all duration-200 md:static md:translate-x-0 ${
-          isMobileOpen ? "translate-x-0" : "-translate-x-full"
-        } ${isCollapsed ? "md:w-20" : "md:w-64"}`}
-      >
-        <div className="flex h-16 items-center justify-between border-b border-zinc-800 px-5">
+    <SidebarProvider
+      style={
+        {
+          "--sidebar": "#191919",
+          "--sidebar-foreground": "#f4f4f5",
+          "--sidebar-accent": "#27272a",
+          "--sidebar-accent-foreground": "#ffffff",
+          "--sidebar-border": "#27272a",
+        } as CSSProperties
+      }
+    >
+      <Sidebar collapsible="icon" className="border-zinc-800 text-zinc-100">
+        <SidebarHeader className="px-5 py-5 group-data-[collapsible=icon]:px-2">
           <Link href="/" className="flex min-w-0 items-center gap-3">
-            <Image src="/O.svg" alt="OpenShare logo" width={28} height={28} />
-            <span className={`font-semibold ${isCollapsed ? "md:hidden" : ""}`}>
-              Openshare
-            </span>
+            <Image src="/O.svg" alt="OpenShare logo" width={40} height={40} />
+            <div className="min-w-0 group-data-[collapsible=icon]:hidden">
+              <p className="truncate text-sm font-semibold">Openshare</p>
+              <p className="truncate text-xs text-zinc-400">Secure sharing</p>
+            </div>
           </Link>
+        </SidebarHeader>
 
+        <SidebarContent className="p-3">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                isActive
+                render={<Link href="/dashboard" aria-current="page" />}
+              >
+                <FiHome />
+                <span>Home</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarContent>
+
+        <SidebarFooter className="p-3">
           <button
             type="button"
-            aria-label="Close sidebar"
-            onClick={() => setIsMobileOpen(false)}
-            className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white md:hidden"
-          >
-            <FiX className="size-5" />
-          </button>
-        </div>
-
-        <nav className="flex-1 p-3">
-          <Link
-            href="/dashboard"
-            aria-current="page"
-            title={isCollapsed ? "Home" : undefined}
-            className={`flex items-center gap-3 rounded-xl bg-zinc-800 px-3 py-3 text-sm font-medium ${
-              isCollapsed ? "md:justify-center" : ""
-            }`}
-          >
-            <FiHome className="size-5 shrink-0" />
-            <span className={isCollapsed ? "md:hidden" : ""}>Home</span>
-          </Link>
-        </nav>
-
-        <div className="border-t border-zinc-800 p-3">
-          <div
-            className={`flex items-center gap-3 rounded-xl p-2 ${
-              isCollapsed ? "md:justify-center" : ""
-            }`}
+            onClick={() => setShowLogout((value) => !value)}
+            className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-zinc-800 group-data-[collapsible=icon]:justify-center"
           >
             <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-800 text-sm font-semibold">
               {user.image ? (
@@ -115,50 +95,19 @@ export default function DashboardShell({ user }: DashboardShellProps) {
               )}
             </div>
 
-            <div className={`min-w-0 flex-1 ${isCollapsed ? "md:hidden" : ""}`}>
+            <div className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
               <p className="truncate text-sm font-medium">{user.name}</p>
-              <p className="truncate text-xs text-zinc-500">{user.email}</p>
+              <p className="truncate text-xs text-zinc-400">{user.email}</p>
             </div>
-          </div>
-
-          <Logout compact={isCollapsed} />
-        </div>
-      </aside>
-
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex h-16 items-center justify-between border-b border-zinc-800 px-4 sm:px-6">
-          <button
-            type="button"
-            aria-label="Open sidebar"
-            onClick={() => setIsMobileOpen(true)}
-            className="rounded-lg border border-zinc-800 p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white md:hidden"
-          >
-            <FiMenu className="size-5" />
           </button>
 
-          <button
-            type="button"
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            aria-expanded={!isCollapsed}
-            onClick={() => setIsCollapsed((value) => !value)}
-            className="hidden rounded-lg border border-zinc-800 p-2 text-zinc-400 hover:bg-zinc-900 hover:text-white md:block"
-          >
-            <FiSidebar className="size-5" />
-          </button>
+          {showLogout && <Logout compact />}
+        </SidebarFooter>
+      </Sidebar>
 
-          <a
-            href="https://github.com/yshishir/openshare"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-xl border border-zinc-800 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white"
-          >
-            <FiGithub className="size-4" />
-            <span>Star</span>
-            <FiStar className="size-4" />
-          </a>
-        </header>
-
+      <SidebarInset className="min-h-screen bg-[#070707] text-zinc-100">
         <main className="flex-1 p-5 sm:p-8 lg:p-10">
+          <SidebarTrigger className="mb-5 text-zinc-300 hover:bg-zinc-900 hover:text-white" />
           <div className="mx-auto max-w-6xl">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -188,7 +137,7 @@ export default function DashboardShell({ user }: DashboardShellProps) {
             </section>
           </div>
         </main>
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
