@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { type CSSProperties, useState } from "react";
+import { useState } from "react";
 import { FiHome, FiLink2, FiUploadCloud } from "react-icons/fi";
 import Logout from "@/components/Logout";
 import {
@@ -39,18 +39,11 @@ export default function DashboardShell({ user }: DashboardShellProps) {
     .toUpperCase();
 
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar": "#191919",
-          "--sidebar-foreground": "#f4f4f5",
-          "--sidebar-accent": "#27272a",
-          "--sidebar-accent-foreground": "#ffffff",
-          "--sidebar-border": "#27272a",
-        } as CSSProperties
-      }
-    >
-      <Sidebar collapsible="icon" className="border-zinc-800 text-zinc-100">
+    <SidebarProvider>
+      <Sidebar
+        collapsible="icon"
+        className="border-zinc-800 text-zinc-100 [&_[data-slot=sidebar-inner]]:bg-[#070707]"
+      >
         <SidebarHeader className="px-5 py-5 group-data-[collapsible=icon]:px-2">
           <Link href="/" className="flex min-w-0 items-center gap-3">
             <Image src="/O.svg" alt="OpenShare logo" width={40} height={40} />
