@@ -1,142 +1,137 @@
 "use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { FiHome, FiLink2, FiUploadCloud } from "react-icons/fi";
-import Logout from "@/components/Logout";
+import React, { useState } from "react";
+import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Instrument_Serif } from "next/font/google";
+  IconArrowLeft,
+  IconBrandTabler,
+  IconSettings,
+  IconUserBolt,
+} from "@tabler/icons-react";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
-export type DashboardUser = {
-  name: string;
-  email: string;
-  image?: string | null;
-};
-
-type DashboardShellProps = {
-  user: DashboardUser;
-};
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  subsets: ["latin"],
-});
-
-export default function DashboardShell({ user }: DashboardShellProps) {
-  const [showLogout, setShowLogout] = useState(false);
-
-  const initials = user.name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
+export function DashboardShell() {
+  const links = [
+    {
+      label: "Dashboard",
+      href: "#",
+      icon: (
+        <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Profile",
+      href: "#",
+      icon: (
+        <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Settings",
+      href: "#",
+      icon: (
+        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Logout",
+      href: "#",
+      icon: (
+        <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+  ];
+  const [open, setOpen] = useState(false);
   return (
-    <SidebarProvider>
-      <Sidebar collapsible="icon" className="border-zinc-800 text-zinc-100">
-        <SidebarHeader className="px-5 py-5 group-data-[collapsible=icon]:px-2">
-          <Link href="/" className="flex min-w-0 items-center gap-3">
-            <Image src="/O.svg" alt="logo" width={30} height={30} />
-            <div className="min-w-0 group-data-[collapsible=icon]:hidden">
-              <p className="truncate text-xl font-medium">
-                Openshare
-              </p>
+    <div
+      className={cn(
+        "flex w-full flex-1 flex-col overflow-hidden border md:flex-row border-neutral-700 bg-neutral-800",
+        "h-screen",
+      )}
+    >
+      <Sidebar open={open} setOpen={setOpen}>
+        <SidebarBody className="justify-between gap-10">
+          <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+            {open ? <Logo /> : <LogoIcon />}
+            <div className="mt-8 flex flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
             </div>
-          </Link>
-        </SidebarHeader>
-
-        <SidebarContent className="p-3">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                isActive
-                render={<Link href="/dashboard" aria-current="page" />}
-              >
-                <FiHome />
-                <span>Home</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarContent>
-
-        <SidebarFooter className="p-3">
-          <button
-            type="button"
-            onClick={() => setShowLogout((value) => !value)}
-            className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-zinc-800 group-data-[collapsible=icon]:justify-center"
-          >
-            <div className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-zinc-800 text-sm font-semibold">
-              {user.image ? (
-                <Image
-                  src={user.image}
-                  alt={`${user.name}'s profile`}
-                  width={40}
-                  height={40}
-                  className="size-10 object-cover"
-                />
-              ) : (
-                initials || "U"
-              )}
-            </div>
-
-            <div className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
-              <p className="truncate text-sm font-medium">{user.name}</p>
-              <p className="truncate text-xs text-zinc-400">{user.email}</p>
-            </div>
-          </button>
-
-          {showLogout && <Logout compact />}
-        </SidebarFooter>
-      </Sidebar>
-
-      <SidebarInset className="min-h-screen bg-[#070707] text-zinc-100">
-        <main className="flex-1 p-5 sm:p-8 lg:p-10">
-          <SidebarTrigger className="mb-5 text-zinc-300 hover:bg-zinc-900 hover:text-white" />
-          <div className="mx-auto max-w-6xl">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h1 className="text-2xl font-semibold tracking-tight">
-                  Your links
-                </h1>
-                <p className="mt-1 text-sm text-zinc-500">
-                  Your shared files and links will appear here.
-                </p>
-              </div>
-
-              <button
-                type="button"
-                className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black hover:bg-zinc-200"
-              >
-                <FiUploadCloud className="size-4" />
-                Upload files
-              </button>
-            </div>
-
-            <section className="mt-8 flex min-h-80 flex-col items-center justify-center rounded-2xl border border-dashed border-zinc-800 bg-zinc-950/50 px-6 text-center">
-              <div className="flex size-12 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400">
-                <FiLink2 className="size-5" />
-              </div>
-              <h2 className="mt-4 text-base font-medium">
-                No shared links yet
-              </h2>
-              <p className="mt-2 max-w-sm text-sm leading-6 text-zinc-500">
-                Once you upload a file and create a link, it will show up here.
-              </p>
-            </section>
           </div>
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+          <div>
+            <SidebarLink
+              link={{
+                label: "Manu Arora",
+                href: "#",
+                icon: (
+                  <img
+                    src="https://assets.aceternity.com/manu.png"
+                    className="h-7 w-7 shrink-0 rounded-full"
+                    width={50}
+                    height={50}
+                    alt="Avatar"
+                  />
+                ),
+              }}
+            />
+          </div>
+        </SidebarBody>
+      </Sidebar>
+      <Dashboard />
+    </div>
   );
 }
+export const Logo = () => {
+  return (
+    <a
+      href="/dashboard"
+      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
+    >
+      <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-white" />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="font-medium whitespace-pre text-white text-2xl"
+      >
+        Openshare
+      </motion.span>
+    </a>
+  );
+};
+export const LogoIcon = () => {
+  return (
+    <a
+      href="#"
+      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
+    >
+      <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
+    </a>
+  );
+};
+
+// Dummy dashboard component with content
+const Dashboard = () => {
+  return (
+    <div className="flex flex-1">
+      <div className="flex h-full w-full flex-1 flex-col gap-2 rounded-tl-2xl border p-2 md:p-10 border-neutral-700 bg-neutral-900">
+        <div className="flex gap-2">
+          {[...new Array(4)].map((i, idx) => (
+            <div
+              key={"first-array-demo-1" + idx}
+              className="h-20 w-full rounded-lg bg-neutral-800"
+            ></div>
+          ))}
+        </div>
+        <div className="flex flex-1 gap-2">
+          {[...new Array(2)].map((i, idx) => (
+            <div
+              key={"second-array-demo-1" + idx}
+              className="h-full w-full rounded-lg bg-neutral-800"
+            ></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
