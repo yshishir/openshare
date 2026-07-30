@@ -17,6 +17,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Instrument_Serif } from "next/font/google";
 
 export type DashboardUser = {
   name: string;
@@ -27,6 +28,10 @@ export type DashboardUser = {
 type DashboardShellProps = {
   user: DashboardUser;
 };
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default function DashboardShell({ user }: DashboardShellProps) {
   const [showLogout, setShowLogout] = useState(false);
@@ -37,19 +42,16 @@ export default function DashboardShell({ user }: DashboardShellProps) {
     .join("")
     .slice(0, 2)
     .toUpperCase();
-
   return (
     <SidebarProvider>
-      <Sidebar
-        collapsible="icon"
-        className="border-zinc-800 text-zinc-100 [&_[data-slot=sidebar-inner]]:bg-[#070707]"
-      >
+      <Sidebar collapsible="icon" className="border-zinc-800 text-zinc-100">
         <SidebarHeader className="px-5 py-5 group-data-[collapsible=icon]:px-2">
           <Link href="/" className="flex min-w-0 items-center gap-3">
-            <Image src="/O.svg" alt="OpenShare logo" width={40} height={40} />
+            <Image src="/O.svg" alt="logo" width={30} height={30} />
             <div className="min-w-0 group-data-[collapsible=icon]:hidden">
-              <p className="truncate text-sm font-semibold">Openshare</p>
-              <p className="truncate text-xs text-zinc-400">Secure sharing</p>
+              <p className="truncate text-xl font-medium">
+                Openshare
+              </p>
             </div>
           </Link>
         </SidebarHeader>
@@ -104,7 +106,9 @@ export default function DashboardShell({ user }: DashboardShellProps) {
           <div className="mx-auto max-w-6xl">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h1 className="text-2xl font-semibold tracking-tight">Your links</h1>
+                <h1 className="text-2xl font-semibold tracking-tight">
+                  Your links
+                </h1>
                 <p className="mt-1 text-sm text-zinc-500">
                   Your shared files and links will appear here.
                 </p>
@@ -123,7 +127,9 @@ export default function DashboardShell({ user }: DashboardShellProps) {
               <div className="flex size-12 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400">
                 <FiLink2 className="size-5" />
               </div>
-              <h2 className="mt-4 text-base font-medium">No shared links yet</h2>
+              <h2 className="mt-4 text-base font-medium">
+                No shared links yet
+              </h2>
               <p className="mt-2 max-w-sm text-sm leading-6 text-zinc-500">
                 Once you upload a file and create a link, it will show up here.
               </p>
