@@ -1,52 +1,55 @@
 "use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
-  IconSettings,
-  IconUserBolt,
+  IconUpload,
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { authClient } from "@/lib/auth-client";
 
-export function DashboardShell() {
+export type DashboardUser = {
+  name: string;
+  email: string;
+  image?: string | null;
+};
+
+type DashboardShellProps = {
+  user: DashboardUser;
+};
+
+export function DashboardShell({ user }: DashboardShellProps) {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
   const links = [
     {
       label: "Dashboard",
-      href: "#",
+      href: "/dashboard",
       icon: (
         <IconBrandTabler className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
       ),
     },
-    {
-      label: "Profile",
-      href: "#",
-      icon: (
-        <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
-    },
-    {
-      label: "Settings",
-      href: "#",
-      icon: (
-        <IconSettings className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
-    },
-    {
-      label: "Logout",
-      href: "#",
-      icon: (
-        <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
-      ),
-    },
   ];
-  const [open, setOpen] = useState(false);
+
+  async function handleLogout() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.replace("/");
+          router.refresh();
+        },
+      },
+    });
+  }
+
   return (
     <div
       className={cn(
-        "flex w-full flex-1 flex-col overflow-hidden border md:flex-row border-neutral-700 bg-neutral-800",
-        "h-screen",
+        "flex h-screen w-full flex-1 flex-col overflow-hidden border border-neutral-700 bg-neutral-800 font-sans md:flex-row",
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
@@ -57,21 +60,41 @@ export function DashboardShell() {
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="group/sidebar flex items-center justify-start gap-2 py-2"
+              >
+                <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+                <motion.span
+                  animate={{
+                    display: open ? "inline-block" : "none",
+                    opacity: open ? 1 : 0,
+                  }}
+                  className="inline-block whitespace-pre !p-0 !m-0 text-sm text-neutral-700 transition duration-150 group-hover/sidebar:translate-x-1 dark:text-neutral-200"
+                >
+                  Logout
+                </motion.span>
+              </button>
             </div>
           </div>
           <div>
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: user.name,
                 href: "#",
-                icon: (
-                  <img
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
+                icon: user.image ? (
+                  <Image
+                    src={user.image}
+                    className="h-7 w-7 shrink-0 rounded-full object-cover"
+                    width={28}
+                    height={28}
+                    alt={user.name + " profile"}
                   />
+                ) : (
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-neutral-700 text-xs font-medium text-white">
+                    {getInitials(user.name)}
+                  </div>
                 ),
               }}
             />
@@ -88,7 +111,7 @@ export const Logo = () => {
       href="/dashboard"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
     >
-      <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-white" />
+      <Image src="/O.svg" alt="Openshare logo" width={28} height={28} />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -102,35 +125,36 @@ export const Logo = () => {
 export const LogoIcon = () => {
   return (
     <a
-      href="#"
+      href="/dashboard"
       className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
     >
-      <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
+      <Image src="/O.svg" alt="Openshare logo" width={28} height={28} />
     </a>
   );
 };
 
-// Dummy dashboard component with content
+const getInitials = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
 const Dashboard = () => {
   return (
     <div className="flex flex-1">
-      <div className="flex h-full w-full flex-1 flex-col gap-2 rounded-tl-2xl border p-2 md:p-10 border-neutral-700 bg-neutral-900">
-        <div className="flex gap-2">
-          {[...new Array(4)].map((i, idx) => (
-            <div
-              key={"first-array-demo-1" + idx}
-              className="h-20 w-full rounded-lg bg-neutral-800"
-            ></div>
-          ))}
-        </div>
-        <div className="flex flex-1 gap-2">
-          {[...new Array(2)].map((i, idx) => (
-            <div
-              key={"second-array-demo-1" + idx}
-              className="h-full w-full rounded-lg bg-neutral-800"
-            ></div>
-          ))}
-        </div>
+      <div className="flex h-full w-full flex-1 flex-col gap-4 rounded-tl-2xl border border-neutral-700 bg-neutral-900 p-2 md:p-10">
+        <label className="flex min-h-52 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed border-neutral-700 bg-neutral-800 px-6 text-center transition-colors hover:bg-neutral-800/80">
+          <IconUpload className="mb-3 h-8 w-8 text-neutral-400" />
+          <span className="text-sm font-medium text-neutral-100">
+            Upload files
+          </span>
+          <span className="mt-1 text-xs text-neutral-500">
+            Choose a file to create a secure share link.
+          </span>
+          <input type="file" className="hidden" />
+        </label>
       </div>
     </div>
   );
