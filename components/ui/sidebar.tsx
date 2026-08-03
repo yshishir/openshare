@@ -1,188 +1,152 @@
 "use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import {
+  CalendarDays,
+  ChevronDown,
+  ExternalLink,
+  Folder,
+  Home,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Settings,
+  Sparkles,
+  Bug,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
-import React, { useState, createContext, useContext } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { IconMenu2, IconX } from "@tabler/icons-react";
 
-interface Links {
-  label: string;
-  href: string;
-  icon: React.JSX.Element | React.ReactNode;
-}
+export type SidebarUser = {
+  name: string;
+  image?: string | null;
+};
 
-interface SidebarContextProps {
+type AppSidebarProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  animate: boolean;
+  user: SidebarUser;
+};
+
+const links = [
+  { label: "Home", href: "/dashboard", icon: Home, active: true },
+  { label: "Projects", href: "#", icon: Folder },
+  { label: "Calendar", href: "#", icon: CalendarDays },
+];
+
+export function Sidebar({ open, setOpen, user }: AppSidebarProps) {
+  return (
+    <aside
+      className={cn(
+        "flex h-screen shrink-0 flex-col border-r border-[#242424] bg-[#050505] text-[#f4f4f4] transition-[width] duration-200",
+        open ? "w-[280px]" : "w-[72px]",
+      )}
+    >
+      <div className="flex h-[72px] items-center justify-between border-b border-[#242424] px-6">
+        <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden">
+          <Image src="/O.svg" alt="Openshare logo" width={28} height={28} />
+          {open && <span className="text-lg font-semibold">OPENSIDE</span>}
+        </Link>
+        <button
+          type="button"
+          onClick={() => setOpen((current) => !current)}
+          className="flex h-8 w-8 items-center justify-center text-[#f4f4f4]"
+          aria-label={open ? "Collapse sidebar" : "Open sidebar"}
+        >
+          {open ? <PanelLeftClose size={24} /> : <PanelLeftOpen size={24} />}
+        </button>
+      </div>
+
+      <nav className="flex flex-1 flex-col px-4 py-4">
+        <div className="space-y-2">
+          {links.map((link) => {
+            const Icon = link.icon;
+
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={cn(
+                  "flex h-12 items-center gap-4 rounded-lg px-4 text-lg text-[#f4f4f4]",
+                  link.active && "bg-[#262626]",
+                )}
+              >
+                <Icon size={22} />
+                {open && <span>{link.label}</span>}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mt-auto space-y-3">
+          <button
+            type="button"
+            className="flex h-12 w-full items-center gap-4 rounded-lg border border-[#7a5a00] bg-[#211b07] px-4 text-left text-[#f5bd00]"
+          >
+            <Bug size={21} />
+            {open && (
+              <>
+                <span className="text-base">Report issue</span>
+                <ExternalLink className="ml-auto" size={18} />
+              </>
+            )}
+          </button>
+
+          <Link
+            href="#"
+            className="flex h-12 items-center gap-4 rounded-lg px-4 text-lg text-[#f4f4f4]"
+          >
+            <Settings size={22} />
+            {open && <span>Settings</span>}
+          </Link>
+
+          <div className="border-t border-[#242424] pt-4">
+            <button
+              type="button"
+              className="flex h-12 w-full items-center gap-3 rounded-lg px-2 text-left text-[#f4f4f4]"
+            >
+              {user.image ? (
+                <Image
+                  src={user.image}
+                  alt={user.name + " profile"}
+                  width={36}
+                  height={36}
+                  className="h-9 w-9 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#262626] text-sm font-medium">
+                  {getInitials(user.name)}
+                </div>
+              )}
+              {open && (
+                <>
+                  <span className="text-lg">{user.name}</span>
+                  <ChevronDown className="ml-auto text-[#9ca3af]" size={18} />
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </nav>
+    </aside>
+  );
 }
 
-const SidebarContext = createContext<SidebarContextProps | undefined>(
-  undefined
-);
-
-export const useSidebar = () => {
-  const context = useContext(SidebarContext);
-  if (!context) {
-    throw new Error("useSidebar must be used within a SidebarProvider");
-  }
-  return context;
-};
-
-export const SidebarProvider = ({
-  children,
-  open: openProp,
-  setOpen: setOpenProp,
-  animate = true,
-}: {
-  children: React.ReactNode;
-  open?: boolean;
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  animate?: boolean;
-}) => {
-  const [openState, setOpenState] = useState(false);
-
-  const open = openProp !== undefined ? openProp : openState;
-  const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
-
+export function SubscribeButton() {
   return (
-    <SidebarContext.Provider value={{ open, setOpen, animate: animate }}>
-      {children}
-    </SidebarContext.Provider>
-  );
-};
-
-export const Sidebar = ({
-  children,
-  open,
-  setOpen,
-  animate,
-}: {
-  children: React.ReactNode;
-  open?: boolean;
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  animate?: boolean;
-}) => {
-  return (
-    <SidebarProvider open={open} setOpen={setOpen} animate={animate}>
-      {children}
-    </SidebarProvider>
-  );
-};
-
-export const SidebarBody = (props: React.ComponentProps<typeof motion.div>) => {
-  return (
-    <>
-      <DesktopSidebar {...props} />
-      <MobileSidebar {...(props as React.ComponentProps<"div">)} />
-    </>
-  );
-};
-
-export const DesktopSidebar = ({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof motion.div>) => {
-  const { open, setOpen, animate } = useSidebar();
-  return (
-    <>
-      <motion.div
-        className={cn(
-          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-neutral-800 w-[300px] shrink-0",
-          className
-        )}
-        animate={{
-          width: animate ? (open ? "300px" : "60px") : "300px",
-        }}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        {...props}
-      >
-        {children}
-      </motion.div>
-    </>
-  );
-};
-
-export const MobileSidebar = ({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<"div">) => {
-  const { open, setOpen } = useSidebar();
-  return (
-    <>
-      <div
-        className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-800 w-full"
-        )}
-        {...props}
-      >
-        <div className="flex justify-end z-20 w-full">
-          <IconMenu2
-            className="text-neutral-200"
-            onClick={() => setOpen(!open)}
-          />
-        </div>
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "-100%", opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: "easeInOut",
-              }}
-              className={cn(
-                "fixed h-full w-full inset-0 bg-neutral-900 p-10 z-[100] flex flex-col justify-between",
-                className
-              )}
-            >
-              <div
-                className="absolute right-10 top-10 z-50 text-neutral-200"
-                onClick={() => setOpen(!open)}
-              >
-                <IconX />
-              </div>
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </>
-  );
-};
-
-export const SidebarLink = ({
-  link,
-  className,
-  ...props
-}: {
-  link: Links;
-  className?: string;
-}) => {
-  const { open, animate } = useSidebar();
-  return (
-    <a
-      href={link.href}
-      className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
-        className
-      )}
-      {...props}
+    <button
+      type="button"
+      className="flex h-[60px] items-center gap-3 bg-[#141722] px-8 text-lg text-[#f4f4f4]"
     >
-      {link.icon}
-
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
-      >
-        {link.label}
-      </motion.span>
-    </a>
+      <Sparkles className="text-[#9aa7ff]" size={22} />
+      <span>Subscribe to</span>
+    </button>
   );
-};
+}
+
+const getInitials = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
