@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Sidebar, SubscribeButton } from "./ui/sidebar";
+import { Sidebar } from "./ui/sidebar";
 import { IconUpload } from "@tabler/icons-react";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 export type DashboardUser = {
   name: string;
@@ -17,8 +18,17 @@ export function DashboardShell({ user }: DashboardShellProps) {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-[#050505] font-sans text-[#f4f4f4]">
-      <Sidebar open={open} setOpen={setOpen} user={user} />
+    <div className="relative flex h-screen w-full overflow-hidden bg-[#050505] font-sans text-[#f4f4f4]">
+      <Sidebar open={open} user={user} />
+      <button
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        className="absolute top-5 z-10 flex h-5 w-5 cursor-pointer items-center justify-center text-[#f4f4f4]"
+        style={{ left: open ? 270 : 90 }}
+        aria-label={open ? "Collapse sidebar" : "Open sidebar"}
+      >
+        {open ? <PanelLeftClose size={26} /> : <PanelLeftOpen size={26} />}
+      </button>
       <Dashboard />
     </div>
   );
