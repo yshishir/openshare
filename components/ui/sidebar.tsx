@@ -38,18 +38,18 @@ export function Sidebar({ open, setOpen, user }: AppSidebarProps) {
     <aside
       className={cn(
         "flex h-screen shrink-0 flex-col border-r border-[#242424] bg-[#050505] text-[#f4f4f4] transition-[width] duration-200",
-        open ? "w-[280px]" : "w-[72px]",
+        open ? "w-64" : "w-18",
       )}
     >
-      <div className="flex h-[72px] items-center justify-between border-b border-[#242424] px-6">
-        <Link href="/dashboard" className="flex items-center gap-3 overflow-hidden">
+      <div className="flex h-18 items-center justify-between border-b border-[#242424] px-6">
+        <Link href="/" className="flex items-center gap-3 overflow-hidden">
           <Image src="/O.svg" alt="Openshare logo" width={28} height={28} />
-          {open && <span className="text-lg font-semibold">OPENSIDE</span>}
+          {open && <span className="text-lg font-semibold tracking-wide">OPENSHARE</span>}
         </Link>
         <button
           type="button"
           onClick={() => setOpen((current) => !current)}
-          className="flex h-8 w-8 items-center justify-center text-[#f4f4f4]"
+          className="flex h-5 w-5 cursor-pointer items-center justify-center text-[#f4f4f4]"
           aria-label={open ? "Collapse sidebar" : "Open sidebar"}
         >
           {open ? <PanelLeftClose size={24} /> : <PanelLeftOpen size={24} />}
@@ -107,7 +107,7 @@ export function Sidebar({ open, setOpen, user }: AppSidebarProps) {
               {user.image ? (
                 <Image
                   src={user.image}
-                  alt={user.name + " profile"}
+                  alt={user.name}
                   width={36}
                   height={36}
                   className="h-9 w-9 rounded-full object-cover"
