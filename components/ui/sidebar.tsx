@@ -29,12 +29,7 @@ export function Sidebar({ open, user }: AppSidebarProps) {
         open ? "w-64" : "w-20",
       )}
     >
-      <div
-        className={cn(
-          "flex h-16 items-center justify-between border-b border-[#242424]",
-          open ? "px-6" : "px-5",
-        )}
-      >
+      <div className="flex h-16 items-center justify-between border-b border-[#242424] px-6">
         <Link href="/" className="flex items-center gap-3 overflow-hidden">
           <Image src="/O.svg" alt="Openshare logo" width={28} height={28} />
           {open && (
@@ -55,12 +50,11 @@ export function Sidebar({ open, user }: AppSidebarProps) {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  "flex h-11 items-center gap-4 rounded-md text-md text-[#f4f4f4]",
+                  "flex h-11 items-center gap-4 rounded-md px-3.5 text-md text-[#f4f4f4]",
                   link.active && "bg-[#262626]",
-                  open ? "px-4" : "px-3",
                 )}
               >
-                <Icon size={18} />
+                <Icon size={20} />
                 {open && <span>{link.label}</span>}
               </Link>
             );
@@ -73,7 +67,7 @@ export function Sidebar({ open, user }: AppSidebarProps) {
           <div className="border-t border-[#242424] pt-4">
             <button
               type="button"
-              className="flex h-10 w-full items-center gap-3 rounded-lg px-2 text-left text-[#f4f4f4]"
+              className="flex h-10 w-full items-center gap-3 rounded-sm px-2 text-left text-[#f4f4f4]"
             >
               {user.image ? (
                 <Image

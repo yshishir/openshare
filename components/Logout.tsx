@@ -25,9 +25,7 @@ export default function Logout({ compact = false }: LogoutProps) {
       type="button"
       onClick={handleLogout}
       title={compact ? "Log out" : undefined}
-      className={`flex h-12 w-full items-center gap-4 rounded-lg border border-[#7a0000] bg-[#210707] px-4 text-left text-red-500 transition-colors hover:bg-[#2a0909] hover:text-red-400 cursor-pointer ${
-        compact ? "md:justify-center" : ""
-      }`}
+      className="flex h-12 w-full cursor-pointer items-center gap-4 rounded-lg border border-[#7a0000] bg-[#210707] px-4 text-left text-red-500 transition-colors hover:bg-[#2a0909] hover:text-red-400"
     >
       <FiLogOut className="size-5 shrink-0" />
       <span className={`text-base ${compact ? "md:hidden" : ""}`}>Logout</span>
