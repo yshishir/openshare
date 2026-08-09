@@ -5,6 +5,8 @@ import { Instrument_Serif } from "next/font/google";
 import { IconCheck, IconCopy, IconUpload, IconX } from "@tabler/icons-react";
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { Sidebar } from "./ui/sidebar";
+import { Input } from "./ui/input";
+import { Switch } from "./ui/switch";
 import { cn } from "@/lib/utils";
 
 const instrumentSerif = Instrument_Serif({
@@ -277,34 +279,34 @@ function CreateShareLinkDashboard() {
             )}
 
             <section className="space-y-4 rounded-lg border border-neutral-800 bg-neutral-900/40 p-5">
-              <p className="text-sm font-medium text-neutral-200">Link options</p>
-
-              <div className="space-y-3">
-                <label className="flex cursor-pointer items-center gap-3">
-                  <input
-                    type="checkbox"
-                    checked={passwordEnabled}
-                    onChange={(event) => {
-                      setPasswordEnabled(event.target.checked);
-                      if (!event.target.checked) {
-                        setPassword("");
-                      }
-                    }}
-                    className="h-4 w-4 rounded border-neutral-600 bg-neutral-900 accent-white"
-                  />
-                  <span className="text-sm text-neutral-300">Password protect</span>
+              <div className="flex items-center justify-between gap-4">
+                <label
+                  htmlFor="password-protection"
+                  className="text-sm text-neutral-300"
+                >
+                  Password protection
                 </label>
-
-                {passwordEnabled && (
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    placeholder="Enter a password"
-                    className="h-10 w-full rounded-md border border-neutral-700 bg-[#050505] px-3 text-sm text-neutral-100 placeholder:text-neutral-600 outline-none focus:border-neutral-500"
-                  />
-                )}
+                <Switch
+                  id="password-protection"
+                  checked={passwordEnabled}
+                  onCheckedChange={(checked) => {
+                    setPasswordEnabled(checked);
+                    if (!checked) {
+                      setPassword("");
+                    }
+                  }}
+                />
               </div>
+
+              {passwordEnabled && (
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Enter a password"
+                  className="h-10 border-neutral-700 bg-[#050505] text-neutral-100 placeholder:text-neutral-600"
+                />
+              )}
             </section>
 
             {error && (
