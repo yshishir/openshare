@@ -12,16 +12,9 @@ const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
 });
 
-const MAX_FILES = 10;
+const MAX_FILES = 5;
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
-
-const EXPIRY_OPTIONS = [
-  { value: "1h", label: "1 hour" },
-  { value: "24h", label: "24 hours" },
-  { value: "7d", label: "7 days" },
-] as const;
-
-type ExpiryValue = (typeof EXPIRY_OPTIONS)[number]["value"];
+const LINK_EXPIRY_HOURS = 24;
 
 export type DashboardUser = {
   name: string;
@@ -69,7 +62,6 @@ function CreateShareLinkDashboard() {
   const [isDragging, setIsDragging] = useState(false);
   const [passwordEnabled, setPasswordEnabled] = useState(false);
   const [password, setPassword] = useState("");
-  const [expiry, setExpiry] = useState<ExpiryValue>("24h");
   const [error, setError] = useState<string | null>(null);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -139,7 +131,6 @@ function CreateShareLinkDashboard() {
     setFiles([]);
     setPasswordEnabled(false);
     setPassword("");
-    setExpiry("24h");
     setShareUrl(null);
     setCopied(false);
     setError(null);
@@ -147,9 +138,6 @@ function CreateShareLinkDashboard() {
       fileInputRef.current.value = "";
     }
   };
-
-  const expiryLabel =
-    EXPIRY_OPTIONS.find((option) => option.value === expiry)?.label ?? "24 hours";
 
   return (
     <main className="flex flex-1 flex-col overflow-y-auto bg-[#050505]">
@@ -164,7 +152,8 @@ function CreateShareLinkDashboard() {
             Create a shareable link
           </h1>
           <p className="text-sm text-neutral-500 md:text-base">
-            Upload files and share them securely with one link.
+            Upload files and share them securely. Links expire after{" "}
+            {LINK_EXPIRY_HOURS} hours.
           </p>
         </header>
 
@@ -173,7 +162,7 @@ function CreateShareLinkDashboard() {
             <div className="space-y-1">
               <p className="text-sm font-medium text-neutral-100">Your link is ready</p>
               <p className="text-xs text-neutral-500">
-                Expires in {expiryLabel}
+                Expires in {LINK_EXPIRY_HOURS} hours
                 {passwordEnabled ? " · Password protected" : ""}
               </p>
             </div>
@@ -315,24 +304,6 @@ function CreateShareLinkDashboard() {
                     className="h-10 w-full rounded-md border border-neutral-700 bg-[#050505] px-3 text-sm text-neutral-100 placeholder:text-neutral-600 outline-none focus:border-neutral-500"
                   />
                 )}
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="expiry" className="text-sm text-neutral-300">
-                  Expires in
-                </label>
-                <select
-                  id="expiry"
-                  value={expiry}
-                  onChange={(event) => setExpiry(event.target.value as ExpiryValue)}
-                  className="h-10 w-full rounded-md border border-neutral-700 bg-[#050505] px-3 text-sm text-neutral-100 outline-none focus:border-neutral-500"
-                >
-                  {EXPIRY_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
               </div>
             </section>
 
