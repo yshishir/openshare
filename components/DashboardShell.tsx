@@ -148,7 +148,6 @@ function CreateShareLinkDashboard() {
             {error}
           </p>
         )}
-
         <button
           type="button"
           onClick={handleCreateLink}
