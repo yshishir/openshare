@@ -15,7 +15,6 @@ const instrumentSerif = Instrument_Serif({
 });
 
 const MAX_FILES = 5;
-const MAX_FILE_SIZE = 50 * 1024 * 1024;
 const LINK_EXPIRY_HOURS = 24;
 
 export type DashboardUser = {
@@ -27,12 +26,6 @@ export type DashboardUser = {
 type DashboardShellProps = {
   user: DashboardUser;
 };
-
-function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
 
 export function DashboardShell({ user }: DashboardShellProps) {
   const [open, setOpen] = useState(true);
@@ -62,35 +55,6 @@ function CreateShareLinkDashboard() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const addFiles = (incoming: FileList | File[]) => {
-    setError(null);
-    const next = [...files];
-
-    for (const file of Array.from(incoming)) {
-      if (next.length >= MAX_FILES) {
-        setError(`You can upload up to ${MAX_FILES} files per link.`);
-        break;
-      }
-
-      if (file.size > MAX_FILE_SIZE) {
-        setError(`"${file.name}" exceeds the 50 MB limit.`);
-        continue;
-      }
-
-      if (next.some((existing) => existing.name === file.name && existing.size === file.size)) {
-        continue;
-      }
-
-      next.push(file);
-    }
-
-    setFiles(next);
-  };
-
-  const removeFile = (index: number) => {
-    setFiles((current) => current.filter((_, i) => i !== index));
-    setError(null);
-  };
 
   const handleCreateLink = () => {
     if (files.length === 0) {
@@ -108,7 +72,7 @@ function CreateShareLinkDashboard() {
 
   return (
     <main className="flex flex-1 flex-col overflow-y-auto bg-[#050505]">
-      <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 p-6 md:p-10">
+      <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-8 p-6 md:p-10 mt-10">
         <header className="space-y-2">
           <h1
             className={cn(
@@ -119,23 +83,12 @@ function CreateShareLinkDashboard() {
             Create a shareable link
           </h1>
           <p className="text-sm text-neutral-500 md:text-base">
-            Upload files and share them securely. Links expire after{" "}
-            {LINK_EXPIRY_HOURS} hours.
+            Upload files and share them securely. Links expire after 24 hours.
           </p>
         </header>
 
         <label
           htmlFor="file-upload"
-          onDragOver={(event) => {
-            event.preventDefault();
-            setIsDragging(true);
-          }}
-          onDragLeave={() => setIsDragging(false)}
-          onDrop={(event) => {
-            event.preventDefault();
-            setIsDragging(false);
-            addFiles(event.dataTransfer.files);
-          }}
           className={cn(
             "flex min-h-52 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed px-6 text-center transition-colors",
             isDragging
@@ -156,45 +109,8 @@ function CreateShareLinkDashboard() {
             type="file"
             multiple
             className="hidden"
-            onChange={(event) => {
-              if (event.target.files) {
-                addFiles(event.target.files);
-              }
-              event.target.value = "";
-            }}
           />
         </label>
-
-        {files.length > 0 && (
-          <section className="space-y-3">
-            <p className="text-sm text-neutral-400">
-              Selected files ({files.length}/{MAX_FILES})
-            </p>
-            <ul className="space-y-2">
-              {files.map((file, index) => (
-                <li
-                  key={`${file.name}-${file.size}-${index}`}
-                  className="flex items-center justify-between gap-3 rounded-md border border-neutral-800 bg-neutral-900/50 px-3 py-2.5"
-                >
-                  <div className="min-w-0">
-                    <p className="truncate text-sm text-neutral-100">{file.name}</p>
-                    <p className="text-xs text-neutral-500">
-                      {formatFileSize(file.size)}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => removeFile(index)}
-                    className="shrink-0 rounded-md p-1 text-neutral-500 transition-colors hover:bg-neutral-800 hover:text-neutral-200"
-                    aria-label={`Remove ${file.name}`}
-                  >
-                    <IconX className="h-4 w-4" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
 
         <section className="space-y-4 rounded-lg border border-neutral-800 bg-neutral-900/40 p-5">
           <div className="flex items-center justify-between gap-4">
