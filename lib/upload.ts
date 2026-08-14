@@ -1,6 +1,6 @@
 export type UploadedFileResult = {
     url: string;
-    pubblicId: string;
+    publicId: string;
     name: string;
     size: number;
     type: string;
@@ -19,5 +19,24 @@ export async function uploadToCloudinary(file: File): Promise<UploadedFileResult
     formData.append("signature", signature);
     formData.append("folder", folder);
 
-    const cloudinaryRes = await fetch()
+    const cloudinaryRes = await fetch(
+        `https://api.cloudinary.com/v1_1/${dbert18b3}/auto/upload`,
+        {
+            method: "POST",
+            body: formData,
+        }
+    );
+    if(!cloudinaryRes.ok) {
+        throw new Error("Failed to upload file(s) to Cloudinary");
+    }
+
+    const data = await cloudinaryRes.json();
+
+    return {
+        url: data.secure_url,
+        publicId: data.public_id,
+        name: file.name,
+        size: file.size,
+        type:file.type,
+    };
 }
