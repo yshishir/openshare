@@ -10,7 +10,7 @@ export async function uploadToCloudinary(file: File): Promise<UploadedFileResult
     const res = await fetch("api/upload", { method: "POST" });
     if (!res.ok) throw new Error("Failed to get Cloudinary upload signature");
 
-    const { signature, timestamp, apiKey, CloudName, folder } = await res.json();
+    const { signature, timestamp, apiKey, cloudName, folder } = await res.json();
 
     const formData = new FormData();
     formData.append("file", file);
@@ -20,7 +20,7 @@ export async function uploadToCloudinary(file: File): Promise<UploadedFileResult
     formData.append("folder", folder);
 
     const cloudinaryRes = await fetch(
-        `https://api.cloudinary.com/v1_1/${dbert18b3}/auto/upload`,
+        `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`,
         {
             method: "POST",
             body: formData,

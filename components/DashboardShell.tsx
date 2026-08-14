@@ -10,7 +10,6 @@ import { Switch } from "./ui/switch";
 import { cn } from "@/lib/utils";
 import { uploadToCloudinary } from "@/lib/upload";
 
-
 const instrumentSerif = Instrument_Serif({
   weight: "400",
   subsets: ["latin"],
@@ -28,7 +27,6 @@ export type DashboardUser = {
 type DashboardShellProps = {
   user: DashboardUser;
 };
-
 
 export function DashboardShell({ user }: DashboardShellProps) {
   const [open, setOpen] = useState(true);
@@ -60,54 +58,51 @@ function CreateShareLinkDashboard() {
   const [isUploading, setIsUploading] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (!e.target.files) return;
-  const selectedFiles = Array.from(e.target.files);
-  addFiles(selectedFiles);
-};
+    if (!e.target.files) return;
+    const selectedFiles = Array.from(e.target.files);
+    addFiles(selectedFiles);
+  };
 
-const addFiles = (newFiles: File[]) => {
-  setFiles((prev) => {
-    const combined = [...prev, ...newFiles];
-    if (combined.length > MAX_FILES) {
-      setError(`You can only upload up to ${MAX_FILES} files at once.`);
-      return prev;
-    }
-    setError(null);
-    return combined;
-  });
-};
-
+  const addFiles = (newFiles: File[]) => {
+    setFiles((prev) => {
+      const combined = [...prev, ...newFiles];
+      if (combined.length > MAX_FILES) {
+        setError(`You can only upload up to ${MAX_FILES} files at once.`);
+        return prev;
+      }
+      setError(null);
+      return combined;
+    });
+  };
 
   const handleCreateLink = async () => {
-  if (files.length === 0) {
-    setError("Add at least one file to create a share link.");
-    return;
-  }
+    if (files.length === 0) {
+      setError("Add at least one file to create a share link.");
+      return;
+    }
 
-  if (passwordEnabled && password.trim().length < 4) {
-    setError("Password must be at least 4 characters.");
-    return;
-  }
-  setError(null);
+    if (passwordEnabled && password.trim().length < 4) {
+      setError("Password must be at least 4 characters.");
+      return;
+    }
+    setError(null);
 
-  try {
-    setIsUploading(true);
-    console.log("Starting upload to Cloudinary...");
+    try {
+      setIsUploading(true);
+      console.log("Starting upload to Cloudinary...");
 
-    const uploadedResults = await Promise.all(
-      files.map((file) => uploadToCloudinary(file))
-    );
+      const uploadedResults = await Promise.all(
+        files.map((file) => uploadToCloudinary(file)),
+      );
 
-    console.log("Uploaded files successfully:", uploadedResults);
-
-  } catch (err) {
-    console.log("Upload error:", err);
-    setError("Failed to upload files. Please try again.");
-  } finally {
-    setIsUploading(false);
-  }
-};
-
+      console.log("Uploaded files successfully:", uploadedResults);
+    } catch (err) {
+      console.log("Upload error:", err);
+      setError("Failed to upload files. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   return (
     <main className="flex flex-1 flex-col overflow-y-auto bg-[#050505]">
@@ -152,21 +147,23 @@ const addFiles = (newFiles: File[]) => {
           />
         </label>
         {files.length > 0 && (
-            <div className="space-y-2">
-                {files.map((file, index) => (
-    <div key={index} className="flex items-center justify-between rounded-md bg-neutral-900 px-3 py-2 text-sm">
-        <span className="truncate text-neutral-300">{file.name}</span>
-        <button
-          onClick={() => setFiles(files.filter((_, i) => i !== index))}
-          className="text-neutral-500 hover:text-white"
-        >
-          <IconX size={16} />
-        </button>
-      </div>
-    ))}
-  </div>
-)}
-
+          <div className="space-y-2">
+            {files.map((file, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between rounded-md bg-neutral-900 px-3 py-2 text-sm"
+              >
+                <span className="truncate text-neutral-300">{file.name}</span>
+                <button
+                  onClick={() => setFiles(files.filter((_, i) => i !== index))}
+                  className="text-neutral-500 hover:text-white"
+                >
+                  <IconX size={16} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
 
         <section className="space-y-4 rounded-lg border border-neutral-800 bg-neutral-900/40 p-5">
           <div className="flex items-center justify-between gap-4">
@@ -205,14 +202,13 @@ const addFiles = (newFiles: File[]) => {
           </p>
         )}
         <button
-  type="button"
-  onClick={handleCreateLink}
-  disabled={files.length === 0 || isUploading}
-  className="h-11 w-full rounded-full bg-white text-sm font-medium text-black transition-colors hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
->
-  {isUploading ? "Uploading..." : "Create share link"}
-</button>
-
+          type="button"
+          onClick={handleCreateLink}
+          disabled={files.length === 0 || isUploading}
+          className="h-11 w-full rounded-full bg-white text-sm font-medium text-black transition-colors hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isUploading ? "Uploading..." : "Create share link"}
+        </button>
       </div>
     </main>
   );
