@@ -56,7 +56,7 @@ export default function Footer() {
               href="https://github.com/yshishir/openshare"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full border-[1.5px] border-zinc-800 bg-zinc-900/70 px-4 py-2 text-xs font-medium text-zinc-300 transition-colors hover:border-zinc-700 hover:text-white"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/80 px-4 py-3 font-mono text-xs text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white"
             >
               <FaStar className="text-yellow-400" />
               Star on GitHub
@@ -66,7 +66,8 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             {columns.map((column) => (
               <div key={column.heading}>
-                <h4 className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+                <h4 className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-zinc-500">
+                  <span className="h-px w-4 bg-lin from-zinc-500 to-transparent" />
                   {column.heading}
                 </h4>
                 <ul className="mt-4 space-y-3">
@@ -88,14 +89,14 @@ export default function Footer() {
 
         <div className="border-t border-zinc-800/70 pt-8">
           <div
-            className={`${instrumentSerif.className} pointer-events-none select-none overflow-hidden text-center text-[22vw] leading-[0.8] tracking-tight text-zinc-800/40 lg:text-[16rem]`}
+            className={`${instrumentSerif.className} pointer-events-none select-none overflow-hidden bg-gradient-to-b from-zinc-500/60 via-zinc-700/25 to-transparent bg-clip-text text-center text-[22vw] leading-[0.8] tracking-tight text-transparent lg:text-[16rem]`}
           >
             Openshare
           </div>
           <div className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-zinc-600 sm:flex-row">
-            <p>© 2026 OpenShare. Released under the MIT License.</p>
+            <p>©2026 OpenShare. Open source under the MIT License.</p>
             <p className="flex items-center gap-1.5">
-              Built in the open with <FaGithub className="h-3 w-3" />
+              All Rights Reserved.
             </p>
           </div>
         </div>
