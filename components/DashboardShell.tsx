@@ -97,7 +97,7 @@ function CreateShareLinkDashboard() {
           <h1
             className={cn(
               instrumentSerif.className,
-              "text-3xl text-neutral-100 md:text-4xl",
+              "text-3xl text-neutral-100 md:text-5xl",
             )}
           >
             Create shareable link
@@ -125,10 +125,10 @@ function CreateShareLinkDashboard() {
             "flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-lg border border-dashed p-6 text-center transition-colors",
             isDragging
               ? "border-neutral-400 bg-neutral-900/90"
-              : "border-neutral-800 bg-neutral-900/40 hover:border-neutral-700 hover:bg-neutral-900/70",
+              : "border-neutral-800 bg-neutral-900/40 ",
           )}
         >
-          <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-neutral-800 text-neutral-300">
+          <div className="mb-3 flex h-10 w-10 items-center justify-center text-neutral-300">
             <Upload size={18} />
           </div>
           <span className="text-sm font-medium text-neutral-200">
@@ -220,7 +220,7 @@ function CreateShareLinkDashboard() {
           type="button"
           onClick={handleCreateLink}
           disabled={files.length === 0 || isUploading}
-          className="h-10 w-full rounded-lg bg-neutral-100 text-xs font-medium text-neutral-950 transition-colors hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-40"
+          className="h-10 w-full rounded-lg bg-neutral-100 text-xs font-medium text-neutral-950 transition-colors hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
         >
           {isUploading ? "Uploading..." : "Create share link"}
         </button>
