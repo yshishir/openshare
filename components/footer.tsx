@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaStar } from "react-icons/fa";
+import { FaGithub, FaStar, FaTwitter } from "react-icons/fa";
 import { Instrument_Serif } from "next/font/google";
+import { FaXTwitter } from "react-icons/fa6";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -18,22 +19,10 @@ const columns = [
     ],
   },
   {
-    heading: "Community",
-    links: [
-      { label: "GitHub", href: "https://github.com/yshishir/openshare" },
-      {
-        label: "Open an issue",
-        href: "https://github.com/yshishir/openshare/issues",
-      },
-      { label: "Star the repo", href: "https://github.com/yshishir/openshare" },
-    ],
-  },
-  {
     heading: "Project",
     links: [
-      { label: "Open Source", href: "https://github.com/yshishir/openshare" },
+      { label: "Contact us", href: "https://x.com/shishirdotcom" },
       { label: "MIT License", href: "https://github.com/yshishir/openshare" },
-      { label: "Self-host", href: "https://github.com/yshishir/openshare" },
     ],
   },
 ];
@@ -56,10 +45,17 @@ export default function Footer() {
               href="https://github.com/yshishir/openshare"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/80 px-4 py-3 font-mono text-xs text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white"
+              className="mt-6 inline-flex h-10 w-10"
             >
-              <FaStar className="text-yellow-400" />
-              Star on GitHub
+              <FaGithub className="text-zinc-600" />
+            </a>
+            <a
+              href="https://x.com/shishirdotcom"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex h-10 w-10"
+            >
+              <FaXTwitter className="text-zinc-600" />
             </a>
           </div>
 
@@ -89,7 +85,7 @@ export default function Footer() {
 
         <div className="border-t border-zinc-800/70 pt-8">
           <div
-            className={`${instrumentSerif.className} pointer-events-none select-none overflow-hidden bg-gradient-to-b from-zinc-500/60 via-zinc-700/25 to-transparent bg-clip-text text-center text-[22vw] leading-[0.8] tracking-tight text-transparent lg:text-[16rem]`}
+            className={`${instrumentSerif.className} pointer-events-none select-none overflow-hidden bg-linear-to-b from-zinc-500/60 via-zinc-700/25 to-transparent bg-clip-text text-center text-[22vw] leading-[0.8] tracking-tight text-transparent lg:text-[16rem]`}
           >
             Openshare
           </div>
