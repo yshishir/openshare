@@ -59,28 +59,28 @@ export default function Footer() {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
-            {columns.map((column) => (
-              <div key={column.heading}>
-                <h4 className="flex items-center gap-2 text-xs font-medium uppercase tracking-widest text-zinc-500">
-                  <span className="h-px w-4 bg-lin from-zinc-500 to-transparent" />
-                  {column.heading}
-                </h4>
-                <ul className="mt-4 space-y-3">
-                  {column.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-zinc-400 transition-colors hover:text-white"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <div className="grid grid-cols-2 gap-20 sm:grid-cols-3">
+  {columns.map((column) => (
+    <div key={column.heading}>
+      <h4 className="text-xs font-medium uppercase tracking-widest text-zinc-500">
+        {column.heading}
+      </h4>
+      <ul className="mt-4 space-y-3">
+        {column.links.map((link) => (
+          <li key={link.label}>
+            <Link
+              href={link.href}
+              className="text-sm text-zinc-400 transition-colors hover:text-white"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>
+
         </div>
 
         <div className="border-t border-zinc-800/70 pt-8">

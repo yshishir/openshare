@@ -15,7 +15,7 @@ export default function Hero({ isAuthenticated }: HeroProps) {
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center px-6 pb-16 pt-20 text-center lg:px-8 lg:pt-23">
       <h1
-        className={`${instrumentSerif.className} max-w-5xl text-6xl leading-tight sm:text-5xl lg:text-6xl`}
+        className={`${instrumentSerif.className} max-w-5xl text-5xl leading-tight sm:text-5xl lg:text-6xl`}
       >
         Share your photos, videos & files securely with one simple link
       </h1>
@@ -33,7 +33,7 @@ export default function Hero({ isAuthenticated }: HeroProps) {
       </Link>
 
       <div className="relative mt-16 w-full max-w-5xl rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 shadow-2xl shadow-black/50 sm:p-10">
-        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-zinc-100/[0.04] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-linear-to-b from-zinc-100/4 to-transparent" />
 
         <div className="relative flex items-center justify-between border-b border-zinc-800 pb-5">
           <div className="flex items-center gap-3">
@@ -61,7 +61,7 @@ export default function Hero({ isAuthenticated }: HeroProps) {
               className="flex flex-1 items-center justify-between rounded-xl border border-zinc-800 bg-zinc-900/70 px-4 py-3"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500/20 to-rose-500/20">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-indigo-500/20 to-rose-500/20">
                   <FaChevronRight className="h-3 w-3 -rotate-90 text-zinc-300" />
                 </span>
                 <span className="text-xs font-medium text-zinc-300">
@@ -73,7 +73,7 @@ export default function Hero({ isAuthenticated }: HeroProps) {
           ))}
         </div>
 
-        <div className="relative mt-5 flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] px-4 py-3">
+        <div className="relative mt-5 flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/6 px-4 py-3">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
           <p className="text-xs text-emerald-300">
             Link is live — anyone with it can view your files.

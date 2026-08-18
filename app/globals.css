@@ -136,3 +136,7 @@ body {
 html {
   scroll-behavior: smooth;
 }
+::selection {
+  background-color: #52525b64;
+  color: #ffffff;
+}
