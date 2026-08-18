@@ -88,28 +88,36 @@ export function Sidebar({ open, onToggle, user }: AppSidebarProps) {
         <div className="space-y-3 pt-4 border-t border-neutral-800/80">
           <Logout compact={!open} />
 
-          <div className="flex items-center gap-3 rounded-lg bg-neutral-900/40 p-2 border border-neutral-800/50">
-            {user.image ? (
-              <Image
-                src={user.image}
-                alt={user.name}
-                width={32}
-                height={32}
-                className="h-8 w-8 rounded-full object-cover shrink-0"
-              />
-            ) : (
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-800 text-neutral-400">
-                <User size={16} />
-              </div>
-            )}
-            {open && (
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-xs font-medium text-neutral-200">
-                  {user.name}
-                </p>
-              </div>
-            )}
-          </div>
+          <div
+  className={cn(
+    "flex items-center gap-3 rounded-lg transition-all",
+    open
+      ? "border border-neutral-800/50 bg-neutral-900/40 p-2"
+      : "justify-center border-transparent bg-transparent p-0"
+  )}
+>
+  {user.image ? (
+    <Image
+      src={user.image}
+      alt={user.name}
+      width={32}
+      height={32}
+      className="h-8 w-8 shrink-0 aspect-square rounded-full object-cover"
+    />
+  ) : (
+    <div className="flex h-8 w-8 shrink-0 aspect-square items-center justify-center rounded-full bg-neutral-800 text-neutral-400">
+      <User size={16} />
+    </div>
+  )}
+  {open && (
+    <div className="min-w-0 flex-1">
+      <p className="truncate text-xs font-medium text-neutral-200">
+        {user.name}
+      </p>
+    </div>
+  )}
+</div>
+
         </div>
       </nav>
     </aside>
