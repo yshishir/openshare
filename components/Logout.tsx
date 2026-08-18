@@ -1,7 +1,8 @@
 "use client";
+
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { FiLogOut } from "react-icons/fi";
+import { LogOut } from "lucide-react";
 
 type LogoutProps = {
   compact?: boolean;
@@ -20,15 +21,16 @@ export default function Logout({ compact = false }: LogoutProps) {
       },
     });
   }
+
   return (
     <button
       type="button"
       onClick={handleLogout}
       title={compact ? "Log out" : undefined}
-      className="flex h-12 w-full cursor-pointer items-center gap-4 rounded-lg border border-[#7a0000] bg-[#210707] px-4 text-left text-red-500 transition-colors hover:bg-[#2a0909] hover:text-red-400"
+      className="flex h-10 w-full cursor-pointer items-center justify-start gap-3 rounded-lg border border-neutral-800/60 bg-neutral-900/50 px-3 text-sm text-neutral-400 transition-colors hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400"
     >
-      <FiLogOut className="size-5 shrink-0" />
-      <span className={`text-base ${compact ? "md:hidden" : ""}`}>Logout</span>
+      <LogOut className="h-4 w-4 shrink-0" />
+      {!compact && <span>Log out</span>}
     </button>
   );
 }
