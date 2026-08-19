@@ -37,7 +37,7 @@ export default function Features() {
             backgroundSize: "28px 28px",
           }}
         />
-        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-zinc-700 to-transparent" />
+        <div className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-zinc-700 to-transparent" />
       </div>
 
       <div className="relative">
