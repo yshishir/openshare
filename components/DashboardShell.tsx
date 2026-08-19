@@ -163,7 +163,7 @@ function CreateShareLinkDashboard() {
                 <button
                   type="button"
                   onClick={() => setFiles(files.filter((_, i) => i !== index))}
-                  className="rounded p-1 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-100"
+                  className="text-neutral-400  hover:text-neutral-100 cursor-pointer"
                 >
                   <X size={14} />
                 </button>
