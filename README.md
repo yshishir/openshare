@@ -10,7 +10,6 @@
 
 <p align="center">
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js" />
-  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript" />
   <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-v4-38BDF8?style=flat-square&logo=tailwindcss" />
   <img alt="Prisma" src="https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma" />
@@ -19,9 +18,8 @@
   <img alt="License" src="https://img.shields.io/badge/License-MIT-green?style=flat-square" />
 </p>
 
----
 
-## ✨ Features
+## Features
 
 - **Any file, any size** — Upload photos, videos, PDFs and more. No accounts required for the people you share with.
 - **One link** — Upload once, get a single shareable link instantly.
@@ -31,17 +29,8 @@
 - **Direct-to-cloud uploads** — Files stream straight to Cloudinary with signed uploads; they never touch our server.
 - **Open source** — Free to use, free to self-host. Your files, your server, your rules.
 
-## 📸 Screenshots
 
-> Drop screenshots of the landing page and dashboard here, e.g.
->
-> ```
-> | Landing page | Dashboard |
-> |:---:|:---:|
-> | ![Landing](./screenshots/landing.png) | ![Dashboard](./screenshots/dashboard.png) |
-> ```
-
-## 🏗️ Architecture
+##  Architecture
 
 High-level flow of the app — auth, uploads and storage:
 
@@ -73,11 +62,7 @@ flowchart TB
     CLOUD -- "secure_url" --> UI
 ```
 
-An editable Excalidraw version of this diagram is available at
-[`docs/architecture.excalidraw`](./docs/architecture.excalidraw) — open it at
-[excalidraw.com](https://excalidraw.com) (drag & drop the file) to tweak it or export a PNG.
-
-### How sharing works
+## How sharing works
 
 1. The user uploads files in the dashboard.
 2. The client calls `POST /api/upload` which checks the session and returns a
@@ -87,20 +72,7 @@ An editable Excalidraw version of this diagram is available at
 5. File metadata — `shareToken`, optional `passwordHash` and `expiresAt` — is
    stored in PostgreSQL via Prisma.
 
-## 🧰 Tech Stack
-
-| Layer | Technology |
-| :--- | :--- |
-| Framework | [Next.js](https://nextjs.org) 16 (App Router) + React 19 |
-| Language | TypeScript |
-| Styling | Tailwind CSS v4 + shadcn/ui |
-| Auth | [Better Auth](https://better-auth.com) (email/password + Google OAuth) |
-| Database | PostgreSQL via [Neon](https://neon.tech) |
-| ORM | [Prisma](https://prisma.io) with driver adapter |
-| File storage | [Cloudinary](https://cloudinary.com) signed uploads |
-| Package manager | [Bun](https://bun.sh) |
-
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -152,71 +124,17 @@ bunx prisma db push
 bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) 🎉
+Open [http://localhost:3000](http://localhost:3000) 
 
-## 📦 Scripts
 
-| Command | Description |
-| :--- | :--- |
-| `bun run dev` | Start the dev server |
-| `bun run build` | Generate Prisma client + production build |
-| `bun run start` | Start the production server |
-| `bun run lint` | Run ESLint |
-| `bunx prisma studio` | Browse the database |
+## Contributing
 
-## 📁 Project Structure
-
-```
-openshare/
-├── app/
-│   ├── api/
-│   │   ├── auth/[...all]/route.ts   # Better Auth handler
-│   │   └── upload/route.ts          # Signed upload signature endpoint
-│   ├── dashboard/page.tsx           # Dashboard (client shell)
-│   ├── login/page.tsx               # Login / register
-│   ├── page.tsx                     # Landing page
-│   ├── layout.tsx
-│   └── globals.css
-├── components/
-│   ├── ui/                          # shadcn/ui primitives
-│   ├── hero.tsx                     # Landing hero
-│   ├── features.tsx                 # Landing feature section
-│   ├── footer.tsx                   # Landing footer
-│   ├── navbar.tsx
-│   ├── DashboardShell.tsx           # Upload + share link UI
-│   └── LoginPage.tsx
-├── lib/
-│   ├── auth.ts                      # Better Auth server config
-│   ├── auth-client.ts               # Better Auth client
-│   ├── cloudinary.ts                # Cloudinary config
-│   └── upload.ts                    # Signed upload helper
-├── prisma/
-│   ├── schema.prisma                # User, Session, File models
-│   └── migrations/
-├── docs/
-│   └── architecture.excalidraw      # Editable architecture diagram
-└── public/
-```
-
-## 🗺️ Roadmap
-
-- [ ] Public share page to view/download shared files
-- [ ] Upload history + revoke links
-- [ ] Custom link expiry duration
-- [ ] Email notifications
-- [ ] Rate limiting & abuse protection
-
-## 🤝 Contributing
-
-Pull requests are welcome! Open an [issue](https://github.com/your-username/openshare/issues)
+Pull requests are welcome! Open an [issue](https://github.com/yshishir/openshare/issues)
 or submit a PR. For major changes, please open an issue first to discuss what you'd like to change.
 
-## 📄 License
+##  License
 
-[MIT](./LICENSE)
+Released under the [MIT LICENSE](./LICENSE)
 
----
 
-<p align="center">
-  Made with ❤️ by <a href="https://github.com/your-username">OpenShare contributors</a>
-</p>
+
