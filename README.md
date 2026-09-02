@@ -11,7 +11,6 @@
 <p align="center">
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript" />
-  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-v4-38BDF8?style=flat-square&logo=tailwindcss" />
   <img alt="Prisma" src="https://img.shields.io/badge/Prisma-2D3748?style=flat-square&logo=prisma" />
   <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql" />
   <img alt="Cloudinary" src="https://img.shields.io/badge/Cloudinary-3448C5?style=flat-square&logo=cloudinary" />
@@ -21,18 +20,18 @@
 
 ## Features
 
-- **Any file, any size** — Upload photos, videos, PDFs and more. No accounts required for the people you share with.
-- **One link** — Upload once, get a single shareable link instantly.
-- **Password protection** — Gate your link behind a password so only the people you choose can open it.
-- **Links that expire** — Every share link self-destructs after 24 hours. No cleanup, no clutter.
-- **Auth built in** — Email/password and Google OAuth via [Better Auth](https://better-auth.com).
-- **Direct-to-cloud uploads** — Files stream straight to Cloudinary with signed uploads; they never touch our server.
-- **Open source** — Free to use, free to self-host. Your files, your server, your rules.
+- **Any file, any size** - Upload photos, videos, PDFs and more. No accounts required for the people you share with.
+- **One link** - Upload once, get a single shareable link instantly.
+- **Password protection** - Gate your link behind a password so only the people you choose can open it.
+- **Links that expire** - Every share link self-destructs after 24 hours. No cleanup, no clutter.
+- **Auth built in** - Email/password and Google OAuth via [Better Auth](https://better-auth.com).
+- **Direct-to-cloud uploads** - Files stream straight to Cloudinary with signed uploads; they never touch our server.
+- **Open source** - Free to use, free to self-host. Your files, your server, your rules.
 
 
 ##  Architecture
 
-High-level flow of the app — auth, uploads and storage:
+High-level flow of the app - auth, uploads and storage:
 
 ```mermaid
 flowchart TB
