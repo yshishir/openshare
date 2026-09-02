@@ -64,10 +64,10 @@ flowchart TB
 
 1. The user uploads files in the dashboard.
 2. The client calls `POST /api/upload` which checks the session and returns a
-   **Cloudinary upload signature** (never exposes the API secret to the browser).
-3. The client uploads the files **directly to Cloudinary** with that signature.
+   cloudinary upload signature which never exposes the API secret to the browser.
+3. The client uploads the files directly to Cloudinary with that signature.
 4. Cloudinary returns a `secure_url` for each file.
-5. File metadata — `shareToken`, optional `passwordHash` and `expiresAt` — is
+5. File metadata - `shareToken`, optional `passwordHash` and `expiresAt` are
    stored in PostgreSQL via Prisma.
 
 ##  Getting Started
