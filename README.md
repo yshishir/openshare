@@ -24,9 +24,8 @@
 - **One link** - Upload once, get a single shareable link instantly.
 - **Password protection** - Gate your link behind a password so only the people you choose can open it.
 - **Links that expire** - Every share link self-destructs after 24 hours. No cleanup, no clutter.
-- **Auth built in** - Email/password and Google OAuth via [Better Auth](https://better-auth.com).
+- **Auth built in** - Email/password and Google OAuth via Better Auth.
 - **Direct-to-cloud uploads** - Files stream straight to Cloudinary with signed uploads; they never touch our server.
-- **Open source** - Free to use, free to self-host. Your files, your server, your rules.
 
 
 ##  Architecture
