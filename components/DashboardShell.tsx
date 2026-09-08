@@ -81,7 +81,25 @@ function CreateShareLinkDashboard() {
       const uploadedResults = await Promise.all(
         files.map((file) => uploadToCloudinary(file)),
       );
-      console.log("Uploaded files successfully:", uploadedResults);
+      const shareResponse = await fetch("/api/shares", {
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json",
+        },
+        body: JSON.stringify({
+          files:uploadedResults,
+          password:passwordEnabled ? password : "",
+        }),
+      });
+
+      const shareData = await shareResponse.json();
+
+      if(!shareResponse.ok) {
+        throw new Error(shareData.error || "Failed to create share link");
+      }
+
+      const shareLink = `{window.location.origin}/s/${shareData.shareToken}`;
+      console.log("Your Share Link:", shareLink);
     } catch (err) {
       console.error("Upload error:", err);
       setError("Failed to upload files. Please try again.");
