@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from "react";
 import { Instrument_Serif } from "next/font/google";
-import { Upload, X, FileText } from "lucide-react";
+import { Upload, X, FileText, Copy, Check } from "lucide-react";
 import { Sidebar } from "./ui/sidebar";
 import { Input } from "./ui/input";
 import { Switch } from "./ui/switch";
@@ -31,7 +31,11 @@ export function DashboardShell({ user }: DashboardShellProps) {
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-neutral-950 font-sans text-neutral-100">
-      <Sidebar open={open} onToggle={() => setOpen((prev) => !prev)} user={user} />
+      <Sidebar
+        open={open}
+        onToggle={() => setOpen((prev) => !prev)}
+        user={user}
+      />
       <CreateShareLinkDashboard />
     </div>
   );
@@ -45,6 +49,22 @@ function CreateShareLinkDashboard() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+  
+      setCopied(true);
+  
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch {
+      setError("Could not copy the link.");
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -84,22 +104,30 @@ function CreateShareLinkDashboard() {
       const shareResponse = await fetch("/api/shares", {
         method: "POST",
         headers: {
-          "Content-Type" : "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          files:uploadedResults,
-          password:passwordEnabled ? password : "",
+          files: uploadedResults,
+          password: passwordEnabled ? password : "",
         }),
       });
 
       const shareData = await shareResponse.json();
 
-      if(!shareResponse.ok) {
+      if (!shareResponse.ok) {
         throw new Error(shareData.error || "Failed to create share link");
       }
 
       const shareLink = `${window.location.origin}/s/${shareData.shareToken}`;
-      console.log("Your Share Link:", shareLink);
+
+      setShareUrl(shareLink);
+      setFiles([]);
+      setPassword("");
+      setPasswordEnabled(false);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (err) {
       console.error("Upload error:", err);
       setError("Failed to upload files. Please try again.");
@@ -121,7 +149,8 @@ function CreateShareLinkDashboard() {
             Create shareable link
           </h1>
           <p className="text-xs text-neutral-400 md:text-sm">
-            Upload files and share them securely. Links expire automatically after 24 hours.
+            Upload files and share them securely. Links expire automatically
+            after 24 hours.
           </p>
         </header>
 
@@ -242,6 +271,55 @@ function CreateShareLinkDashboard() {
         >
           {isUploading ? "Uploading..." : "Create share link"}
         </button>
+        {shareUrl && (
+  <section className="rounded-lg border border-green-900/40 bg-green-950/20 p-4">
+    <div className="mb-3 flex items-center gap-2">
+      <Check className="h-4 w-4 text-green-400" />
+
+      <div>
+        <p className="text-sm font-medium text-neutral-100">
+          Share link created
+        </p>
+
+        <p className="text-xs text-neutral-500">
+          Anyone with this link can access the shared files.
+        </p>
+      </div>
+    </div>
+
+    <div className="flex gap-2">
+      <input
+        type="text"
+        value={shareUrl}
+        readOnly
+        onFocus={(event) => event.target.select()}
+        className="h-10 min-w-0 flex-1 rounded-lg border border-neutral-800 bg-neutral-950 px-3 text-xs text-neutral-300 outline-none"
+      />
+
+      <button
+        type="button"
+        onClick={handleCopyLink}
+        className="flex h-10 shrink-0 items-center gap-2 rounded-lg bg-neutral-100 px-4 text-xs font-medium text-neutral-950 hover:bg-neutral-200"
+      >
+        {copied ? (
+          <>
+            <Check className="h-3.5 w-3.5" />
+            Copied
+          </>
+        ) : (
+          <>
+            <Copy className="h-3.5 w-3.5" />
+            Copy
+          </>
+        )}
+      </button>
+    </div>
+
+    <p className="mt-2 text-xs text-neutral-500">
+      This link will expire after 24 hours.
+    </p>
+  </section>
+)}
       </div>
     </main>
   );
