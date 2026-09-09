@@ -21,7 +21,7 @@ const columns = [
   {
     heading: "Project",
     links: [
-      { label: "Contact us", href: "https://x.com/shishirdotcom" },
+      { label: "Contact us", href: "https://x.com/yeshishir" },
       { label: "MIT License", href: "https://github.com/yshishir/openshare" },
     ],
   },
@@ -50,7 +50,7 @@ export default function Footer() {
               <FaGithub className="text-zinc-600" />
             </a>
             <a
-              href="https://x.com/shishirdotcom"
+              href="https://x.com/yeshishir"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex h-10 w-10"
