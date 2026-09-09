@@ -98,7 +98,7 @@ function CreateShareLinkDashboard() {
         throw new Error(shareData.error || "Failed to create share link");
       }
 
-      const shareLink = `{window.location.origin}/s/${shareData.shareToken}`;
+      const shareLink = `${window.location.origin}/s/${shareData.shareToken}`;
       console.log("Your Share Link:", shareLink);
     } catch (err) {
       console.error("Upload error:", err);
