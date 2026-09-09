@@ -55,9 +55,9 @@ function CreateShareLinkDashboard() {
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl);
-  
+
       setCopied(true);
-  
+
       setTimeout(() => {
         setCopied(false);
       }, 2000);
@@ -272,54 +272,48 @@ function CreateShareLinkDashboard() {
           {isUploading ? "Uploading..." : "Create share link"}
         </button>
         {shareUrl && (
-  <section className="rounded-lg border border-green-900/40 bg-green-950/20 p-4">
-    <div className="mb-3 flex items-center gap-2">
-      <Check className="h-4 w-4 text-green-400" />
+          <section className="rounded-lg border border-neutral-800 p-4">
+            <div className="mb-3 flex items-center gap-2">
+              <div>
+                <p className="text-sm font-medium text-neutral-100">
+                  Share link created
+                </p>
+              </div>
+            </div>
 
-      <div>
-        <p className="text-sm font-medium text-neutral-100">
-          Share link created
-        </p>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={shareUrl}
+                readOnly
+                onFocus={(event) => event.target.select()}
+                className="h-10 min-w-0 flex-1 rounded-lg border border-neutral-800 bg-neutral-950 px-3 text-xs text-neutral-300 outline-none"
+              />
 
-        <p className="text-xs text-neutral-500">
-          Anyone with this link can access the shared files.
-        </p>
-      </div>
-    </div>
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className="flex h-10 shrink-0 items-center gap-2 rounded-lg bg-neutral-100 px-4 text-xs font-medium text-neutral-950 hover:bg-neutral-200 cursor-pointer"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-3.5 w-3.5" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5" />
+                    Copy
+                  </>
+                )}
+              </button>
+            </div>
 
-    <div className="flex gap-2">
-      <input
-        type="text"
-        value={shareUrl}
-        readOnly
-        onFocus={(event) => event.target.select()}
-        className="h-10 min-w-0 flex-1 rounded-lg border border-neutral-800 bg-neutral-950 px-3 text-xs text-neutral-300 outline-none"
-      />
-
-      <button
-        type="button"
-        onClick={handleCopyLink}
-        className="flex h-10 shrink-0 items-center gap-2 rounded-lg bg-neutral-100 px-4 text-xs font-medium text-neutral-950 hover:bg-neutral-200"
-      >
-        {copied ? (
-          <>
-            <Check className="h-3.5 w-3.5" />
-            Copied
-          </>
-        ) : (
-          <>
-            <Copy className="h-3.5 w-3.5" />
-            Copy
-          </>
+            <p className="mt-2 text-xs text-neutral-500">
+              This link will expire after 24 hours.
+            </p>
+          </section>
         )}
-      </button>
-    </div>
-
-    <p className="mt-2 text-xs text-neutral-500">
-      This link will expire after 24 hours.
-    </p>
-  </section>
-)}
       </div>
     </main>
   );
