@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Instrument_Serif } from "next/font/google";
 import { Clock3, Download, FileText, LockKeyhole } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import PasswordProtectedShare from "@/components/PasswordProtectedShare";
 
 const instrumentSerif = Instrument_Serif({
   weight: "400",
@@ -99,19 +100,7 @@ export default async function SharePage({
 
         <section className="mt-8">
           {share.passwordHash ? (
-            <div className="rounded-lg border border-neutral-800 bg-neutral-900/50 p-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-800">
-                <LockKeyhole className="h-4 w-4 text-neutral-300" />
-              </div>
-
-              <h2 className="mt-5 text-base font-medium">
-                Password protected
-              </h2>
-
-              <p className="mt-1 text-sm text-neutral-500">
-                Enter the password to access these files.
-              </p>
-            </div>
+            <PasswordProtectedShare shareToken={shareToken} />
           ) : (
             <div className="space-y-2">
               {share.files.map((file) => (
