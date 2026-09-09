@@ -38,7 +38,7 @@ export default function Hero({ isAuthenticated }: HeroProps) {
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 p-1.5 shadow-2xl shadow-black/70">
           <Image
             src="/hero.png"
-            alt="OpenShare dashboard for creating secure file-sharing links"
+            alt="OpenShare"
             width={1914}
             height={1062}
             priority

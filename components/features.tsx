@@ -144,33 +144,6 @@ export default function Features() {
               </p>
             </div>
           </div>
-
-          <div className="group relative flex flex-col justify-between gap-8 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/40 p-8 md:col-span-2 lg:col-span-12 lg:flex-row lg:items-center">
-            <div className="max-w-lg">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900 text-white">
-                <Code className="h-5 w-5" />
-              </div>
-              <h3
-                className={`${instrumentSerif.className} mt-6 text-2xl leading-tight lg:text-3xl`}
-              >
-                Open source, end to end
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-zinc-400">
-                Built in the open and free to self-host. Your files, your
-                server, your rules.
-              </p>
-            </div>
-
-            <Link
-              href="https://github.com/yshishir/openshare"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900/80 px-4 py-3 font-mono text-xs text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              github.com/yshishir/openshare
-            </Link>
-          </div>
         </div>
       </div>
     </section>
