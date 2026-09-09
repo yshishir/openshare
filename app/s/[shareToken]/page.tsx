@@ -55,9 +55,6 @@ export default async function SharePage({
       <main className="flex min-h-screen items-center justify-center bg-neutral-950 px-6 text-neutral-100">
         <div className="text-center">
           <h1 className="text-xl font-medium">This link has expired</h1>
-          <p className="mt-2 text-sm text-neutral-500">
-            Ask the sender to create a new share link.
-          </p>
         </div>
       </main>
     );
@@ -74,7 +71,7 @@ export default async function SharePage({
         <header className="flex items-center gap-2.5">
           <Image
             src="/O.svg"
-            alt="OpenShare logo"
+            alt="OpenShare"
             width={28}
             height={28}
           />
@@ -89,7 +86,7 @@ export default async function SharePage({
           </h1>
 
           <p className="mt-3 text-sm leading-6 text-neutral-400">
-            Open or download the files below before this link expires.
+            Access the files below before this link expires.
           </p>
 
           <div className="mt-4 flex items-center gap-2 text-xs text-neutral-500">
