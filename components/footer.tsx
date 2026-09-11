@@ -34,8 +34,8 @@ export default function Footer() {
         <div className="flex flex-col gap-12 py-16 lg:flex-row lg:justify-between">
           <div className="max-w-xs">
             <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
-              <Image src="/O.svg" alt="OpenShare logo" width={27} height={27} />
-              Openshare
+              <Image src="/O.svg" alt="OneDrop logo" width={27} height={27} />
+              OneDrop
             </Link>
             <p className="mt-4 text-sm leading-6 text-zinc-500">
               The simple, secure way to share files with a single link. Free,
@@ -87,10 +87,10 @@ export default function Footer() {
           <div
             className={`${instrumentSerif.className} pointer-events-none select-none overflow-hidden bg-linear-to-b from-zinc-500/60 via-zinc-700/25 to-transparent bg-clip-text text-center text-[22vw] leading-[0.8] tracking-tight text-transparent lg:text-[16rem]`}
           >
-            Openshare
+            OneDrop
           </div>
           <div className="flex flex-col items-center justify-between gap-3 py-6 text-xs text-zinc-600 sm:flex-row">
-            <p>©2026 OpenShare. Open source under the MIT License.</p>
+            <p>©2026 OneDrop. Open source under the MIT License.</p>
             <p className="flex items-center gap-1.5">
               All Rights Reserved.
             </p>

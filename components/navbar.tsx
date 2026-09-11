@@ -9,7 +9,7 @@ export default function Navbar({ isAuthenticated }: NavbarProps) {
   return (
     <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
       <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
-        <Image src="/O.svg" alt="OpenShare logo" width={27} height={27} />
+        <Image src="/O.svg" alt="OneDrop logo" width={27} height={27} />
         Openshare
       </Link>
 

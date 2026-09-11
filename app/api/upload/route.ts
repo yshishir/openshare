@@ -12,7 +12,7 @@ export async function POST() {
   }
 
   const timestamp = Math.round(new Date().getTime() / 1000);
-  const folder = "openshare";
+  const folder = "onedrop";
 
   const signature = cloudinary.utils.api_sign_request(
     { timestamp, folder },

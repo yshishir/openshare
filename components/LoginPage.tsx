@@ -60,8 +60,8 @@ const LoginPage = () => {
           <div className="absolute inset-0 bg-black/25" />
           <Link href="/">
             <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center justify-center gap-3">
-              <Image src="/O.svg" alt="Openshare logo" width={30} height={30} />
-              <p className="text-lg font-semibold">Openshare</p>
+              <Image src="/O.svg" alt="OneDrop logo" width={30} height={30} />
+              <p className="text-lg font-semibold">OneDrop</p>
             </div>
           </Link>
         </div>

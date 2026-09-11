@@ -71,11 +71,11 @@ export default async function SharePage({
         <header className="flex items-center gap-2.5">
           <Image
             src="/O.svg"
-            alt="OpenShare"
+            alt="OneDrop"
             width={28}
             height={28}
           />
-          <span className="text-sm font-medium">OpenShare</span>
+          <span className="text-sm font-medium">OneDrop</span>
         </header>
 
         <section className="mt-14">

@@ -250,8 +250,8 @@ function CreateShareLinkDashboard() {
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                placeholder="Enter password (min. 4 characters)"
-                className="h-9 border-neutral-800 bg-neutral-950 text-xs text-neutral-100 placeholder:text-neutral-600 focus:border-neutral-700"
+                placeholder="password"
+                className="h-9 border-neutral-800 bg-neutral-950 text-xs text-neutral-100 placeholder:text-neutral-600"
               />
             </div>
           )}

@@ -38,9 +38,9 @@ export default function Hero({ isAuthenticated }: HeroProps) {
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 p-1.5 shadow-2xl shadow-black/70">
           <Image
             src="/hero.png"
-            alt="OpenShare"
-            width={1914}
-            height={1062}
+            alt="OneDrop"
+            width={1683}
+            height={934}
             priority
             sizes="(max-width: 768px) 100vw, 1152px"
             className="h-auto w-full rounded-xl"

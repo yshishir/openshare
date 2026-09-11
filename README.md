@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="./public/O.svg" alt="OpenShare" width="80" />
+  <img src="./public/O.svg" alt="OneDrop" width="80" />
 </p>
 
-<h1 align="center">OpenShare</h1>
+<h1 align="center">OneDrop</h1>
 
 <p align="center">
   Share your photos, videos & files securely with one simple link.
@@ -38,7 +38,7 @@ flowchart TB
         UI["Next.js UI<br/>/  /login  /dashboard"]
     end
 
-    subgraph Server["OpenShare Server (Next.js)"]
+    subgraph Server["OneDrop Server (Next.js)"]
         NEXT["Next.js App Router"]
         API["POST /api/upload<br/>(auth-gated)"]
         AUTH["Better Auth<br/>email/password + Google OAuth"]

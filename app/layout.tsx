@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 export const metadata: Metadata = {
-  title: "openshare",
+  title: "OneDrop",
   description:
-    "Share your photos, videos, & files through a secure link with OpenShare.",
+    "Share your photos, videos, & files through a secure link with OneDrop.",
 };
 
 export default function RootLayout({

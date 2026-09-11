@@ -34,9 +34,9 @@ export function Sidebar({ open, onToggle, user }: AppSidebarProps) {
         {open ? (
           <>
             <Link href="/" className="flex items-center gap-3 overflow-hidden">
-              <Image src="/O.svg" alt="Openshare logo" width={26} height={26} />
+              <Image src="/O.svg" alt="OneDrop logo" width={26} height={26} />
               <span className="text-sm font-semibold tracking-wider text-neutral-200">
-                OPENSHARE
+                ONEDROP
               </span>
             </Link>
             <button

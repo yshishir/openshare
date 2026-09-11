@@ -51,7 +51,7 @@ export default function Features() {
             Simple by design, secure by default
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-6 text-zinc-400 sm:text-base">
-            Upload once, share anywhere. OpenShare handles the rest — no
+            Upload once, share anywhere. OneDrop handles the rest — no
             accounts required to view.
           </p>
         </div>
